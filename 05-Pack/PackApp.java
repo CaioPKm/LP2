@@ -1,3 +1,9 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+import figures.*;
+
 class PackApp {
     public static void main (String[] args) {
         PackFrame frame = new PackFrame();
@@ -27,8 +33,8 @@ class PackFrame extends JFrame {
 
     public void paint (Graphics g) {
         super.paint(g);
-        this.r1.paint(g);
-        this.e1.paint(g);
-        this.t1.paint(g);
+        this.r1.paint(g,0,255,0,0,0,0);
+        this.e1.paint(g,255,0,0,0,0,0);
+        this.t1.paint(g,0,0,255);
     }
 }
