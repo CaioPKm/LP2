@@ -2,11 +2,11 @@ package figures;
 
 import java.awt.*;
 
-public class Rect {
+public class Rect2 {
     int x, y;
     int w, h;
 
-    public Rect (int x, int y, int w, int h) {
+    public Rect2 (int x, int y, int w, int h) {
         this.x = x;
         this.y = y;
         this.w = w;
