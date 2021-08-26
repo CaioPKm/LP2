@@ -12,9 +12,9 @@ class PackApp2 {
 }
 
 class PackFrame extends JFrame {
-    Rect r1;
-    Ellipse e1;
-    Texto t1;
+    Rect2 r1;
+    Ellipse2 e1;
+    Texto2 t1;
 
     PackFrame () {
         this.addWindowListener (
@@ -26,15 +26,15 @@ class PackFrame extends JFrame {
         );
         this.setTitle("Java Packages");
         this.setSize(350, 350);
-        this.r1 = new Rect(50,50, 100,30);
-        this.e1 = new Ellipse(50,100, 100,30);
-        this.t1 = new Texto(50,150,"Hello World!!!");
+        this.r1 = new Rect2(50,50, 100,30,0,255,0,155,0,0);
+        this.e1 = new Ellipse2(50,100, 100,30,255,0,0,0,255,0);
+        this.t1 = new Texto2(50,150,"Hello World!!!",0,0,255);
     }
 
     public void paint (Graphics g) {
         super.paint(g);
-        this.r1.paint(g,0,255,0,0,0,0);
-        this.e1.paint(g,255,0,0,0,0,0);
-        this.t1.paint(g,0,0,255);
+        this.r1.paint(g);
+        this.e1.paint(g);
+        this.t1.paint(g);
     }
 }
