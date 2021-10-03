@@ -27,4 +27,10 @@ public class Ellipse extends Figure {
     public boolean clicked (int x, int y) {
         return (this.x <= x && x<= this.x + this.w && this.y <= y && y <= this.y + this.h);
     }
+    
+    public void focusRef (Graphics g){
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setPaint(Color.red);
+        g2d.drawRect(this.x-2, this.y-2, this.w+2,this.h+2);
+    }
 }
