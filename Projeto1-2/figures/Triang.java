@@ -34,16 +34,21 @@ public class Triang extends Figure{
     }
     
     public void drag (int dx, int dy) { 
-        this.x += dx;
-        this.y += dy;
+        p.xpoints[0] += dx ;
+        p.ypoints[0] += dy ;
+        
+        p.xpoints[1] += dx ;
+        p.ypoints[1] += dy ;
 
-        this.w += dx;
-        this.h += dy;
+        p.xpoints[2] += dx ;
+        p.ypoints[2] += dy ;
+    
+    }
 
-        this.p1 += dx;
-        this.p2 += dy;
-        p.xpoints = new int[]{this.x, this.w, this.p1};
-        p.ypoints = new int[]{this.y ,this.h , this.p2 };
+    public void focusRef (Graphics g){
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setPaint(Color.red);
+        g2d.drawRect(p.xpoints[0]-2, p.ypoints[0]-2, (this.w - this.x)+4,(this.h - this.y)+4);
     }
     
 }
