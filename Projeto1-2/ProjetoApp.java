@@ -53,10 +53,8 @@ class ListFrame extends JFrame {
                 public void keyPressed (KeyEvent evt) { // parametros para construção das figuras
                     int x = mouse.x;
                     int y = mouse.y;
-                    int w = x+100;
-                    int h = y+100;
-                    int x2 =  x; 
-                    int y2 = h;  
+                    int w = 100;
+                    int h = 100; 
                     int r = rand.nextInt(255);
                     int g = rand.nextInt(255);
                     int b = rand.nextInt(255);
@@ -76,6 +74,10 @@ class ListFrame extends JFrame {
                         figs.add(fig); // nova figura para a  mesma lista
                         focused = fig;
                     } else if(evt.getKeyChar() == 'y') {
+                        w = x+100;
+                        h = y+100;
+                        int x2 =  x; 
+                        int y2 = h;  
                         Figure fig = new Triang(x,y, x2,y2, w,h, r,g,b, r2,g2,b2); // nova figura criada triangulo
                         figs.add(fig); // nova figura para a  mesma lista
                         focused = fig;
@@ -106,10 +108,8 @@ class ListFrame extends JFrame {
         super.paint(g);
         for (Figure fig: this.figs) {
             fig.paint(g);
-            if (fig ==  focused){ //desenhar um retangulo vermelhor na figura em foco 
-                Graphics2D g2d = (Graphics2D) g;
-                g2d.setPaint(Color.red);
-                g2d.drawRect(fig.x-2, fig.y-2, fig.w+2,fig.h+2);
+            if (fig ==  focused){
+                fig.focusRef(g); //desenhar um retangulo vermelhor na figura em foco
              }
         }
     }
