@@ -33,7 +33,7 @@ typedef struct {
 void rect_print (Rect* this) {
     Figure* sup = (Figure*) this;
     printf("Retangulo de tamanho (%d,%d) na posicao (%d,%d) e area %d.\n",this->w, this->h, sup->x, sup->y, sup->vtable->area(sup));
-    sup->vtable->drag(sup);
+
 }
 
 int rect_area (Rect* this) {
@@ -72,7 +72,7 @@ void ellipse_print (Ellipse* this) {
     Figure* sup = (Figure*) this;
     printf("Elipse de tamanho (%d,%d) na posicao (%d,%d) e area %d.\n", this->w, this->h, sup->x, sup->y,
      sup->vtable->area(sup));
-    sup->vtable->drag(sup);
+
 }
 
 int ellipse_area (Ellipse* this) {
@@ -115,7 +115,7 @@ void texto_print(Texto* this)
     Figure* sup = (Figure*) this;
     printf("Texto de conteudo (%s) na posicao (%d,%d) de tamanho (%d,%d) e area(%d).\n",this->text, sup->x,sup->y,
      this->w, this->h, sup->vtable->area(sup));
-    sup->vtable->drag(sup);
+
 }
 
 void texto_drag (Texto* this) {
@@ -159,7 +159,7 @@ void triang_print(Triag* this)
 {
     Figure* sup = (Figure*) this;
     printf("Triangulo na posicao (%d,%d) de tamanho (%d,%d) e area(%d).\n",this->w, this->h, sup->x, sup->y, sup->vtable->area(sup));
-    sup->vtable->drag(sup);
+
 }
 
 int triang_area (Triag* this) {
@@ -207,6 +207,9 @@ void main (void)
 
     for (int i=0; i<8; i++) 
         figs[i]->vtable->print(figs[i]);
+    
+    for (int i=0; i<8; i++) 
+        figs[i]->vtable->drag(figs[i]);
 
     for (int i=0; i<4; i++) 
         free(figs[i]);
