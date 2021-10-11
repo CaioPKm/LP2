@@ -43,7 +43,8 @@ int rect_area (Rect* this) {
 
 void rect_drag (Rect* this) {
     Figure* sup = (Figure*) this;
-    printf("\n\nO Retangulo foi movido para a posicao(%d,%d)\n\n",sup->x+15,sup->y+15);
+    sup->x+15;
+    sup->y+15;
 }
 
 Figure_vtable rect_vtable = {
@@ -82,7 +83,8 @@ int ellipse_area (Ellipse* this) {
 
 void ellipse_drag (Ellipse* this) {
     Figure* sup = (Figure*) this;
-    printf("\n\nA Ellipse foi movido para a posicao(%d,%d)\n\n",sup->x+15,sup->y+15);
+    sup->x+15;
+    sup->y+15;
 }
 
 Figure_vtable ellipse_vtable = {
@@ -120,7 +122,8 @@ void texto_print(Texto* this)
 
 void texto_drag (Texto* this) {
     Figure* sup = (Figure*) this;
-    printf("\nO Texto foi movido para a posicao(%d,%d)\n\n",sup->x+15,sup->y+15);
+    sup->x+15;
+    sup->y+15;
 }
 
 int texto_area (Texto* this) {
@@ -169,7 +172,8 @@ int triang_area (Triag* this) {
 
 void triang_drag (Triag* this) {
     Figure* sup = (Figure*) this;
-    printf("\n\nO Texto foi movido para a posicao(%d,%d)\n\n",sup->x+15,sup->y+15);
+    sup->x+15;
+    sup->y+15;
 }
 
 Figure_vtable triang_vtable = {
