@@ -1,11 +1,12 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.io.*;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import figures.*;
+import figures.*; 
 
 class ProjetoApp {
     public static void main (String[] args) {
@@ -15,21 +16,49 @@ class ProjetoApp {
 }
 
 class ListFrame extends JFrame {
-    ArrayList<Figure> figs = new ArrayList<Figure>(); // Lista heterogenea
+    ArrayList<Figure> figs = new ArrayList<Figure>(); // Lista heterogenea de figuras
+    ArrayList<Button> buts = new ArrayList<Button>();// Lista heterogenea de Botões  
     Random rand = new Random();
     Figure focused = null; //figura que vai ficar em foco
     Point mouse = null; //pontos (x,y) do mouse
+    Button but_focus = null; // botão em foco
     int disx,disy;
     boolean moviment = false;
     int index;
 
     ListFrame () {
+
+        buts.add(new Button(0, new Rect(0,0, 0,0, 0,0,0, 0,0,0)));// botão para rectangulo
+        buts.add(new Button(1, new Ellipse(0,0, 0,0, 0,0,0, 0,0,0)));// botão pra ellipse
+        //buts.add(new Button(0, new Texto(0,0, 0,0, 0,0,0, 0,0,0))); //Figure fig = new Texto(x, y, "HELLO!!!", r, g, b, w,h); // nova figura criada texto 
+        //buts.add(new Button(0, new Rect(0,0, 0,0, 0,0,0, 0,0,0))); //Figure fig = new Triang(x,y, x2,y2, w,h, r,g,b, r2,g2,b2); // nova figura criada triangulo
+
+        try {
+            FileInputStream f = new FileInputStream("proj.svg");
+            ObjectInputStream o = new ObjectInputStream(f);
+            this.figs = (ArrayList<Figure>) o.readObject();
+            o.close();
+        } catch (Exception x) {
+            System.out.println("ERRO!!! <Em abrir o arquivo>");
+        }
+        
+
         this.addWindowListener (
             new WindowAdapter() {
                 public void windowClosing (WindowEvent e) {
+                    try {
+                        FileOutputStream f = new FileOutputStream("proj.svg");
+                        ObjectOutputStream o = new ObjectOutputStream(f);
+                        o.writeObject(figs);
+                        o.flush();
+                        o.close();
+                    } catch (Exception x) {
+                        System.out.println("ERRO!!! <Em escrever o arquivo>");
+                    }
                     System.exit(0);
                 }
             }
+
         );
 
         this.addMouseListener (
@@ -37,14 +66,22 @@ class ListFrame extends JFrame {
                 public void mousePressed (MouseEvent evt) {
                     mouse = evt.getPoint();
                     focused = null;
+                    
                     for (int i = 0; i < figs.size(); i++) {
                         if (figs.get(i).clicked(mouse.x,mouse.y)) {
                             focused = figs.get(i); // figura em foco
                         }
                     }
+                    
                     if (focused != null) { // maior ponto Z
                         figs.remove(focused);
                         figs.add(focused);
+                    }
+                    
+                    for (int i=0; i< buts.size(); i++) {
+                        if(buts.get(i).clicked(mouse.x,mouse.y)){
+                            but_focus = buts.get(i);
+                        }
                     }
                     repaint();
                 }
@@ -128,18 +165,24 @@ class ListFrame extends JFrame {
             }
         );
  
-        this.setTitle("Pojeto1/2");
+        this.setTitle("Pojeto2/2");
         this.setSize(600, 600);
     }
 
     public void paint (Graphics g) {
         super.paint(g);
-        for (int i = 0; i < figs.size(); i++) {
+        /*for (int i = 0; i < figs.size(); i++) {
             figs.get(i).paint(g);
             if (figs.get(i) ==  focused){
                 figs.get(i).focusRef(g); //desenhar um retangulo vermelhor na figura em foco
              }
+        }*/
+        for (Button but: this.buts)  { // paint dos botoes 
+            but.paint(g,but == but_focus);
+        }
+
+        for(Figure fig : this.figs) { // paint das figuras
+            fig.paint(g,fig == focused);
         }
     }
 }
-
