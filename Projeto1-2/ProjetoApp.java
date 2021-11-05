@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
 import java.io.*;
 
 import java.util.ArrayList;
@@ -28,11 +29,12 @@ class ListFrame extends JFrame {
 
     ListFrame () {
 
-        buts.add(new Button(0, new Rect(0,0, 0,0, 0,0,0, 0,0,0)));// botão para rectangulo
-        buts.add(new Button(1, new Ellipse(0,0, 0,0, 0,0,0, 0,0,0)));// botão pra ellipse
-        //buts.add(new Button(0, new Texto(0,0, 0,0, 0,0,0, 0,0,0))); //Figure fig = new Texto(x, y, "HELLO!!!", r, g, b, w,h); // nova figura criada texto 
-        //buts.add(new Button(0, new Rect(0,0, 0,0, 0,0,0, 0,0,0))); //Figure fig = new Triang(x,y, x2,y2, w,h, r,g,b, r2,g2,b2); // nova figura criada triangulo
-
+        
+        buts.add(new Button(0, new Rect(100,100, 0,0, 0,0,0, 0,0,0)));// botão para rectangulo
+        buts.add(new Button(1, new Ellipse(205,123, 0,0, 0,0,0, 0,0,0)));// botão pra ellipse
+        buts.add(new Button(2, new Texto(28, 233, 0, 0, 0, 0,0))); //Figure fig = new Texto(x, y, "HELLO!!!", r, g, b, w,h); // nova figura criada texto 
+        buts.add(new Button(3, new Triang (24,144, 0,0, 0,0,0, 0,0,0))); //Figure fig = new Triang(x,y, x2,y2, w,h, r,g,b, r2,g2,b2); // nova figura criada triangulo//
+                                        
         try {
             FileInputStream f = new FileInputStream("proj.svg");
             ObjectInputStream o = new ObjectInputStream(f);
@@ -71,6 +73,37 @@ class ListFrame extends JFrame {
                         if (figs.get(i).clicked(mouse.x,mouse.y)) {
                             focused = figs.get(i); // figura em foco
                         }
+                        /*for (int j=0; j< buts.size(); j++) {
+                            if(buts.get(j).clicked(mouse.x,mouse.y)){ // botão em foco
+                                but_focus = buts.get(j);
+                            }
+                            else if ((buts.get(j).clicked(mouse.x,mouse.y) == false) && buts.get(j).clicked(mouse.x,mouse.y) != figs.get(i).clicked(mouse.x,mouse.y)){
+                                if (but_focus == buts.get(1)) { // criação de figuras com o click do mouse e com o botão selecionado
+                                    Figure fig = new Ellipse(mouse.x,mouse.y, 30,30, rand.nextInt(255),rand.nextInt(255),rand.nextInt(255), 
+                                                                                     rand.nextInt(255),rand.nextInt(255),rand.nextInt(255)); // nova figura criada ellipse                                                    
+                                    figs.add(fig); // nova figura para a  mesma lista
+                                    focused = fig;
+                                }
+                                else if (but_focus == buts.get(2)) {
+                                    Figure fig = new Texto(mouse.x,mouse.y, rand.nextInt(255),rand.nextInt(255),rand.nextInt(255), 30,30); // nova figura criada texto 
+                                    figs.add(fig); // nova figura para a  mesma lista
+                                    focused = fig;
+                                }
+                                else if (but_focus == buts.get(3)) {
+                                    Figure fig = new Triang(mouse.x,mouse.y, 30,30, rand.nextInt(255),rand.nextInt(255),rand.nextInt(255), 
+                                                                                    rand.nextInt(255),rand.nextInt(255),rand.nextInt(255)); // nova figura criada triangulo
+                                    figs.add(fig); // nova figura para a  mesma lista
+                                    focused = fig;
+                                }
+                                else {
+                                    Figure fig = new Rect(mouse.x,mouse.y, 30,30, rand.nextInt(255),rand.nextInt(255),rand.nextInt(255), 
+                                                                                  rand.nextInt(255),rand.nextInt(255),rand.nextInt(255)); // nova figura criada retangulo
+                                    figs.add(fig); // nova figura para a  mesma lista 
+                                    focused = fig;
+                                }
+                            }
+                        }*/
+                        
                     }
                     
                     if (focused != null) { // maior ponto Z
@@ -79,10 +112,35 @@ class ListFrame extends JFrame {
                     }
                     
                     for (int i=0; i< buts.size(); i++) {
-                        if(buts.get(i).clicked(mouse.x,mouse.y)){
+                        if(buts.get(i).clicked(mouse.x,mouse.y)){ // botão em foco
                             but_focus = buts.get(i);
                         }
                     }
+                    
+                    /*if (but_focus == buts.get(1)) { // criação de figuras com o click do mouse e com o botão selecionado
+                        Figure fig = new Ellipse(mouse.x,mouse.y, 30,30, rand.nextInt(255),rand.nextInt(255),rand.nextInt(255), 
+                                                                        rand.nextInt(255),rand.nextInt(255),rand.nextInt(255)); // nova figura criada ellipse                                                    
+                        figs.add(fig); // nova figura para a  mesma lista
+                        focused = fig;
+                    }
+                    else if (but_focus == buts.get(2)) {
+                        Figure fig = new Texto(mouse.x,mouse.y, rand.nextInt(255),rand.nextInt(255),rand.nextInt(255), 30,30); // nova figura criada texto 
+                        figs.add(fig); // nova figura para a  mesma lista
+                        focused = fig;
+                    }
+                    else if (but_focus == buts.get(3)) {
+                        Figure fig = new Triang(mouse.x,mouse.y, 30,30, rand.nextInt(255),rand.nextInt(255),rand.nextInt(255), 
+                                                                        rand.nextInt(255),rand.nextInt(255),rand.nextInt(255)); // nova figura criada triangulo
+                            figs.add(fig); // nova figura para a  mesma lista
+                            ocused = fig;
+                    }
+                    else {
+                        Figure fig = new Rect(mouse.x,mouse.y, 30,30, rand.nextInt(255),rand.nextInt(255),rand.nextInt(255), 
+                                                                      rand.nextInt(255),rand.nextInt(255),rand.nextInt(255)); // nova figura criada retangulo
+                        figs.add(fig); // nova figura para a  mesma lista 
+                        focused = fig;
+                    }*/
+        
                     repaint();
                 }
                 
@@ -111,15 +169,15 @@ class ListFrame extends JFrame {
                     int x;
                     int y;
                     if (mouse == null) {
-                         x = rand.nextInt(550);
-                         y = rand.nextInt(550);
+                         x = rand.nextInt(250);
+                         y = rand.nextInt(250);
                     }
                     else {
                          x = mouse.x;
                          y = mouse.y;
                     }
-                    int w = 100;
-                    int h = 100; 
+                    int w = 50;
+                    int h = 50; 
                     int r = rand.nextInt(255);
                     int g = rand.nextInt(255);
                     int b = rand.nextInt(255);
@@ -135,15 +193,13 @@ class ListFrame extends JFrame {
                         figs.add(fig); // nova figura para a  mesma lista
                         focused = fig;
                     } else if(evt.getKeyChar() == 't') {
-                        Figure fig = new Texto(x, y, "HELLO!!!", r, g, b, w,h); // nova figura criada texto 
+                        Figure fig = new Texto(x, y, r, g, b, w,h); // nova figura criada texto 
                         figs.add(fig); // nova figura para a  mesma lista
                         focused = fig;
                     } else if(evt.getKeyChar() == 'y') {
-                        w = x+100;
-                        h = y+100;
-                        int x2 =  x; 
-                        int y2 = h;  
-                        Figure fig = new Triang(x,y, x2,y2, w,h, r,g,b, r2,g2,b2); // nova figura criada triangulo
+                        /*w = x+100;
+                        h = y+100;*/
+                        Figure fig = new Triang(x,y, w,h, r,g,b, r2,g2,b2); // nova figura criada triangulo
                         figs.add(fig); // nova figura para a  mesma lista
                         focused = fig;
                     }
@@ -166,7 +222,7 @@ class ListFrame extends JFrame {
         );
  
         this.setTitle("Pojeto2/2");
-        this.setSize(600, 600);
+        this.setSize(300, 300);
     }
 
     public void paint (Graphics g) {
@@ -186,3 +242,5 @@ class ListFrame extends JFrame {
         }
     }
 }
+
+
