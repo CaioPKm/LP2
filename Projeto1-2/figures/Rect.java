@@ -31,4 +31,3 @@ public class Rect extends Figure{
     
     
 }
-
