@@ -3,7 +3,7 @@ package figures;
 import java.awt.*;
 
 public class Rect extends Figure{
-    int r2, g2, b2;
+    private int r2, g2, b2;
     
     public Rect (int x, int y, int w, int h, int r, int g, int b, int r2, int g2, int b2) {
         super(x, y, r, g, b, w,h);
