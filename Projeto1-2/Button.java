@@ -35,9 +35,6 @@ public class Button implements IVisible {
             case 2:
             this.fig.y = PAD+SPC + idx*DIM +20;
             break;
-            case 3:
-            this.fig.y = PAD+SPC + idx*DIM +20;
-            break;
         }
         this.fig.paint(g, false);
         
