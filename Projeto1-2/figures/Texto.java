@@ -4,10 +4,8 @@ import java.awt.*;
 import java.awt.font.TextAttribute;
 
 public class Texto extends Figure{
-    String text;
-    public Texto (int x, int y, String text, int r, int g, int b, int w, int h) {
+    public Texto (int x, int y, int r, int g, int b, int w, int h) {
         super(x, y, r, g, b, w,h);
-        this.text = text;
     }
 
     public void paint (Graphics g, boolean focus) {
@@ -24,7 +22,7 @@ public class Texto extends Figure{
         this.w = 50;
         this.h = 16;
         
-        g2d.drawString(this.text,this.x,this.y);
+        g2d.drawString("Texto", this.x,this.y);
     }
 
     public boolean clicked (int ex, int ey) {
