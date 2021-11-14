@@ -37,7 +37,7 @@ class ListFrame extends JFrame {
         buts.add(new Button(3, new Rect(24,144, 0,0, 0,0,0, 0,0,0))); //botão para rectangulo
                                         
         try {
-            FileInputStream f = new FileInputStream("proj.svg");
+            FileInputStream f = new FileInputStream("proj.bin");
             ObjectInputStream o = new ObjectInputStream(f);
             this.figs = (ArrayList<Figure>) o.readObject();
             o.close();
@@ -50,7 +50,7 @@ class ListFrame extends JFrame {
             new WindowAdapter() {
                 public void windowClosing (WindowEvent e) {
                     try {
-                        FileOutputStream f = new FileOutputStream("proj.svg");
+                        FileOutputStream f = new FileOutputStream("proj.bin");
                         ObjectOutputStream o = new ObjectOutputStream(f);
                         o.writeObject(figs);
                         o.flush();
@@ -70,51 +70,16 @@ class ListFrame extends JFrame {
                     mouse = evt.getPoint();
                     focused = null;
                     but_focus = null;
+                    but_clicked = false;
                     
                     for (int i = 0; i < figs.size(); i++) {
                         if (figs.get(i).clicked(mouse.x,mouse.y)) {
                             focused = figs.get(i); // figura em foco
                             but_focus = null;
+                            but_clicked = false;
                         }
                     }
-                    if (focused ==  null) {
-                        for (int j=0; j< buts.size(); j++) {
-                             if(buts.get(j).clicked(mouse.x,mouse.y)){ // botão em foco
-                                but_focus = buts.get(j);
-                                focused = null;
-                            } 
-                            /*else {
-                                if (but_focus == buts.get(1)) { // criação de figuras com o click do mouse e com o botão selecionado
-                                    Figure fig = new Ellipse(mouse.x,mouse.y, 50,50, rand.nextInt(255),rand.nextInt(255),rand.nextInt(255), 
-                                                                                    rand.nextInt(255),rand.nextInt(255),rand.nextInt(255)); // nova figura criada ellipse                                                    
-                                    figs.add(fig); // nova figura para a  mesma lista
-                                    focused = fig;
-                                    but_focus = null;
-                                }
-                                else if (but_focus == buts.get(2)) {
-                                    Figure fig = new Texto(mouse.x,mouse.y, rand.nextInt(255),rand.nextInt(255),rand.nextInt(255), 50,50); // nova figura criada texto 
-                                    figs.add(fig); // nova figura para a  mesma lista
-                                    focused = fig;
-                                    but_focus = null;
-                                }
-                                else if (but_focus == buts.get(0)) {
-                                    Figure fig = new Triang(mouse.x,mouse.y, 50,50, rand.nextInt(255),rand.nextInt(255),rand.nextInt(255), 
-                                                                                   rand.nextInt(255),rand.nextInt(255),rand.nextInt(255)); // nova figura criada triangulo
-                                        figs.add(fig); // nova figura para a  mesma lista
-                                        focused = fig;
-                                        but_focus = null;
-                                }
-                                else if (but_focus == buts.get(3)) {
-                                    Figure fig = new Rect(mouse.x,mouse.y, 50,50, rand.nextInt(255),rand.nextInt(255),rand.nextInt(255), 
-                                                                                rand.nextInt(255),rand.nextInt(255),rand.nextInt(255)); // nova figura criada retangulo
-                                    figs.add(fig); // nova figura para a  mesma lista 
-                                    focused = fig;
-                                    but_focus = null;
-                                }
-                            }*/      
-                        } 
-                    }
-                    
+                  
                     if (focused != null) { // maior ponto Z
                         figs.remove(focused);
                         figs.add(focused);
@@ -124,44 +89,39 @@ class ListFrame extends JFrame {
                         if(buts.get(i).clicked(mouse.x,mouse.y)){ // botão em foco
                             but_focus = buts.get(i);
                             focused = null;
+                            but_clicked = true;
                         }
                         
                     }
                     repaint();
-                    for (int i=0; i< buts.size(); i++) {
-                        
-                        if((buts.get(i).clicked(mouse.x,mouse.y)) == false) {
-                            
-                            if ((focused == null) && (but_focus != null)){
-                                if (but_focus == buts.get(1)) { // criação de figuras com o click do mouse e com o botão selecionado
-                                    Figure fig = new Ellipse(mouse.x,mouse.y, 50,50, rand.nextInt(255),rand.nextInt(255),rand.nextInt(255), 
-                                                                                    rand.nextInt(255),rand.nextInt(255),rand.nextInt(255)); // nova figura criada ellipse                                                    
-                                    figs.add(fig); // nova figura para a  mesma lista
-                                    focused = fig;
-                                    but_focus = null;
-                                }
-                                else if (but_focus == buts.get(2)) {
-                                    Figure fig = new Texto(mouse.x,mouse.y, rand.nextInt(255),rand.nextInt(255),rand.nextInt(255), 50,50); // nova figura criada texto 
-                                    figs.add(fig); // nova figura para a  mesma lista
-                                    focused = fig;
-                                    but_focus = null;
-                                }
-                                else if (but_focus == buts.get(0)) {
-                                    Figure fig = new Triang(mouse.x,mouse.y, 50,50, rand.nextInt(255),rand.nextInt(255),rand.nextInt(255), 
-                                                                                rand.nextInt(255),rand.nextInt(255),rand.nextInt(255)); // nova figura criada triangulo
-                                        figs.add(fig); // nova figura para a  mesma lista
-                                        focused = fig;
-                                        but_focus = null;
-                                }
-                                else if (but_focus == buts.get(3)) {
-                                    Figure fig = new Rect(mouse.x,mouse.y, 50,50, rand.nextInt(255),rand.nextInt(255),rand.nextInt(255), 
-                                                                                rand.nextInt(255),rand.nextInt(255),rand.nextInt(255)); // nova figura criada retangulo
-                                    figs.add(fig); // nova figura para a  mesma lista 
-                                    focused = fig;
-                                    but_focus = null;
-                                }
-                            }
-                        } 
+                    if (focused == null && but_focus != null){
+                        if (but_focus == buts.get(1)) { // criação de figuras com o click do mouse e com o botão selecionado
+                            Figure fig = new Ellipse(mouse.x,mouse.y, 50,50, rand.nextInt(255),rand.nextInt(255),rand.nextInt(255), 
+                                                                            rand.nextInt(255),rand.nextInt(255),rand.nextInt(255)); // nova figura criada ellipse                                                    
+                            figs.add(fig); // nova figura para a  mesma lista
+                            focused = fig;
+                            but_focus = null;
+                        }
+                        else if (but_focus == buts.get(2)) {
+                            Figure fig = new Texto(mouse.x,mouse.y, rand.nextInt(255),rand.nextInt(255),rand.nextInt(255), 50,50); // nova figura criada texto 
+                            figs.add(fig); // nova figura para a  mesma lista
+                            focused = fig;
+                            but_focus = null;
+                        }
+                        else if (but_focus == buts.get(0)) {
+                            Figure fig = new Triang(mouse.x,mouse.y, 50,50, rand.nextInt(255),rand.nextInt(255),rand.nextInt(255), 
+                                                                        rand.nextInt(255),rand.nextInt(255),rand.nextInt(255)); // nova figura criada triangulo
+                                figs.add(fig); // nova figura para a  mesma lista
+                                focused = fig;
+                                but_focus = null;
+                        }
+                        else if (but_focus == buts.get(3)) {
+                            Figure fig = new Rect(mouse.x,mouse.y, 50,50, rand.nextInt(255),rand.nextInt(255),rand.nextInt(255), 
+                                                                        rand.nextInt(255),rand.nextInt(255),rand.nextInt(255)); // nova figura criada retangulo
+                            figs.add(fig); // nova figura para a  mesma lista 
+                            focused = fig;
+                            but_focus = null;
+                        }
                     }
                     repaint();
                 }
@@ -249,12 +209,6 @@ class ListFrame extends JFrame {
 
     public void paint (Graphics g) {
         super.paint(g);
-        /*for (int i = 0; i < figs.size(); i++) {
-            figs.get(i).paint(g);
-            if (figs.get(i) ==  focused){
-                figs.get(i).focusRef(g); //desenhar um retangulo vermelhor na figura em foco
-             }
-        }*/
         for (Button but: this.buts)  { // paint dos botoes 
             but.paint(g,but == but_focus);
         }
@@ -264,3 +218,4 @@ class ListFrame extends JFrame {
         }
     }
 }
+
