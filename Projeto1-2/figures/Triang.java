@@ -38,15 +38,6 @@ public class Triang extends Figure{
     }
 
     public void drag (int dx, int dy) { 
-        /*p.xpoints[0] += dx ;
-        p.ypoints[0] += dy ;
-        
-        p.xpoints[1] += dx ;
-        p.ypoints[1] += dy ;
-
-        p.xpoints[2] += dx ;
-        p.ypoints[2] += dy ;*/
-
         this.x += dx;
         this.y += dy;
 
