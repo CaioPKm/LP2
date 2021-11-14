@@ -37,7 +37,7 @@ class ListFrame extends JFrame {
         buts.add(new Button(3, new Rect(24,144, 0,0, 0,0,0, 0,0,0))); //botão para rectangulo
                                         
         try {
-            FileInputStream f = new FileInputStream("proj.bin");
+            FileInputStream f = new FileInputStream("proj.svg");
             ObjectInputStream o = new ObjectInputStream(f);
             this.figs = (ArrayList<Figure>) o.readObject();
             o.close();
@@ -50,7 +50,7 @@ class ListFrame extends JFrame {
             new WindowAdapter() {
                 public void windowClosing (WindowEvent e) {
                     try {
-                        FileOutputStream f = new FileOutputStream("proj.bin");
+                        FileOutputStream f = new FileOutputStream("proj.svg");
                         ObjectOutputStream o = new ObjectOutputStream(f);
                         o.writeObject(figs);
                         o.flush();
