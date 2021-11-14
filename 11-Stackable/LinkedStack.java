@@ -1,19 +1,20 @@
-import java.util.LinkedList;
+import java.util.*;
+import java.io.*;
 
 public class LinkedStack implements IStackable {
-    LinkedList <Integer> list= new LinkedList<Integer>();
-    
+   private LinkedList list= new LinkedList();
+   
     public int size () {
         return list.size();
     }
 
-    public void push (int x ) {
-        list.add(0,x);
+    public void push(int x ) {
+        list.addFirst(x);
     }
-    
+
     public int pop () {
-        int x = list.get(0);
-        list.remove(0);
+        int x; 
+        x = (int)list.removeFirst();
         return x;
     }
 }
